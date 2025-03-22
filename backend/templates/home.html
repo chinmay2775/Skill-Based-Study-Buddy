@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Skill-Based Study Buddy</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* General Styling */
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #4a90e2, #9013fe);
+        color: white;
+        text-align: center;
+    }
+
+    /* Hero Section */
+    .hero {
+        padding: 50px;
+        font-size: 1.5rem;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        margin-bottom: 20px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+    .hero h1 {
+        margin-bottom: 0.5rem;
+        font-size: 2.5rem;
+    }
+
+    .hero p {
+        font-size: 1.2rem;
+        opacity: 0.9;
+    }
+
+    .user-profile {
+        background-color:  #8325ff58;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        margin: 1rem auto;
+        max-width: 800px;
+        padding: 1.5rem;
+    }
+
+    .user-welcome { 
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+        color: #ffffff;
+    }
+
+    .user-skills {
+        margin-bottom: 1rem;
+        color:#ffffff
+    }
+
+    .user-goals {
+        margin-bottom: 1rem;
+        color:#ffffff
+    }
+
+    .logout-btn {
+        background-color: #f44336;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .logout-btn:hover {
+        background-color: #d32f2f;
+    }
+
+    /* Navigation Section */
+    .navigation h2 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+
+    /* Navigation Cards */
+    .nav-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin-top: 20px;
+    }
+
+    .nav-card {
+        background: rgba(255, 255, 255, 0.2);
+        padding: 20px;
+        border-radius: 10px;
+        backdrop-filter: blur(10px);
+        width: 200px;
+        cursor: pointer;
+        transition: 0.3s;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-card img {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 10px;
+    }
+
+    .nav-card h3 {
+        font-size: 1.2rem;
+    }
+
+    .nav-card:hover {
+        transform: scale(1.05);
+        background: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Why Choose Us Section */
+    .why-choose {
+        margin-top: 40px;
+    }
+
+    .why-choose h2 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+    }
+
+    .features {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .feature-box {
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        padding: 20px;
+        width: 300px;
+        border-radius: 10px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        transition: 0.3s;
+    }
+
+    .feature-box:hover {
+        transform: translateY(-5px);
+    }
+
+    /* Footer */
+    footer {
+        margin-top: 40px;
+        padding: 10px;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 10px;
+        font-size: 0.9rem;
+    }
+
+    .subscribe-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: linear-gradient(90deg, #ff8c00, #ff0080, #8a2be2, #ff0080, #ff8c00);
+            background-size: 400% 400%;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+            animation: glitter 2s infinite alternate;
+            position: fixed;
+            z-index: 999;
+        }
+
+        /* Hover Effect */
+        .subscribe-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0px 0px 12px rgba(255, 215, 0, 1);
+        }
+
+        /* Glitter Animation */
+        @keyframes glitter {
+            0% { background-position: 0% 50%; filter: brightness(1.2); }
+            50% { background-position: 100% 50%; filter: brightness(1.5); }
+            100% { background-position: 0% 50%; filter: brightness(1.2); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <button class="subscribe-btn" onclick="subscribe()">Subscribe</button>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Skill-Based Study Buddy</h1>
+        <p>Your smart companion for skill-based learning.</p>
+    </section>
+    
+    <!-- User Profile Section -->
+    <section class="user-profile">
+        <div class="user-welcome">Welcome, <span id="username-display">!</span></div>
+        <div class="user-skills"><strong>Skills:</strong> <span id="user-skills"></span></div>
+        <div class="user-goals"><strong>Learning Goals:</strong> <span id="user-goals"></span></div>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </section>
+
+    <!-- Navigation Cards -->
+    <section class="navigation">
+        <h2>Where do you want to go?</h2>
+        <div class="nav-container">
+            <div class="nav-card" onclick="navigateTo('profile')">
+                <h4>👤</h4>
+                <h3>Profile</h3>
+            </div>
+            <div class="nav-card" onclick="navigateTo('courses')">
+                <h4>🖥️</h4>
+                <h3>Courses</h3>
+            </div>
+            <div class="nav-card" onclick="navigateTo('chat')">
+                <h4>💬</h4>
+                <h3>Learn with Buddy</h3>
+            </div>
+            <div class="nav-card" onclick="navigateTo('mentors')">
+                <h4>🧑‍🏫</h4>
+                <h3>Mentors</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="why-choose">
+        <h2>Why Choose Us?</h2>
+        <div class="features">
+            <div class="feature-box">
+                <h3>📚 Personalized Learning</h3>
+                <p>Get tailored courses and learning materials based on your skills.</p>
+            </div>
+            <div class="feature-box">
+                <h3>🤖 AI-Powered Assistance</h3>
+                <p>Smart chatbot to guide you through learning paths and queries.</p>
+            </div>
+            <div class="feature-box">
+                <h3>🎓 Certification & Growth</h3>
+                <p>Complete courses and earn certifications to showcase your skills.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>Skill-Based Study Buddy</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Home page loaded");
+            
+            // Check if user is logged in
+            const username = sessionStorage.getItem("username");
+            const skills = sessionStorage.getItem("skills");
+            const learningGoals = sessionStorage.getItem("learningGoals");
+            
+            console.log("Username from session:", username);
+            console.log("Skills from session:", skills);
+            console.log("Learning goals from session:", learningGoals);
+            
+            if (!username) {
+                console.log("No username found, redirecting to login");
+                // Redirect to login page if not logged in
+                window.location.href = "login";
+                return;
+            }
+            
+            // Display the username
+            const usernameDisplay = document.getElementById("username-display");
+            if (usernameDisplay) {
+                usernameDisplay.textContent = username + "!";
+            } else {
+                console.error("username-display element not found");
+            }
+            
+            // Display the skills
+            const userSkills = document.getElementById("user-skills");
+            if (userSkills) {
+                userSkills.textContent = skills || "Not specified";
+            } else {
+                console.error("user-skills element not found");
+            }
+            
+            // Display the learning goals
+            const userGoals = document.getElementById("user-goals");
+            if (userGoals) {
+                userGoals.textContent = learningGoals || "Not specified";
+            } else {
+                console.error("user-goals element not found");
+            }
+            
+            console.log("User data successfully displayed");
+        });
+
+        function navigateTo(page) {
+        console.log("Navigating to:", page);
+        window.location.href = "/" + page;
+}
+ 
+
+
+        
+    
+        function logout() {
+            // Clear session storage
+            sessionStorage.clear();
+            // Redirect to login page
+            window.location.href = "login";
+        }
+    </script>
+    <script>
+        window.embeddedChatbotConfig = {
+            chatbotId: "H4vXOZVApGu6tplEfs3tM",
+            domain: "www.chatbase.co"
+        }
+        function subscribe() {
+            window.location.href = "subscription.html"; // Navigate to subscription page
+        }
+    </script>
+    <script src="https://www.chatbase.co/embed.min.js" chatbotId="H4vXOZVApGu6tplEfs3tM" domain="www.chatbase.co" defer>
+    </script>
+
+</body>
+</html>

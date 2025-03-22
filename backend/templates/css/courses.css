@@ -1,0 +1,55 @@
+/* General styling */
+body {
+    background-color: #f8f9fa;
+}
+
+/* Hero section styling */
+.hero-section {
+    background-color: #343a40;
+    color: white;
+    padding: 3rem 0;
+    margin-bottom: 2rem;
+}
+
+/* Course card styling */
+.course-card {
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    height: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.course-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.course-card .card-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #343a40;
+}
+
+.course-card .card-text {
+    color: #6c757d;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.course-card .btn {
+    align-self: flex-start;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .col-md-4 {
+        margin-bottom: 1.5rem;
+    }
+}

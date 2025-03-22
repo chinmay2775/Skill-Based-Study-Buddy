@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Details - Skill-Based Study Buddy</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: rgb(255, 255, 255);
+        }
+
+        .card {
+            max-width: 600px;
+            margin: auto;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            background: #1e272e;
+        }
+
+        .btn-primary {
+            background-color: #2980b9;
+            border: none;
+            transition: 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #3498db;
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="home.html">Skill-Based Study Buddy</a>
+            <button class="btn btn-outline-light" onclick="logout()">Logout</button>
+        </div>
+    </nav>
+
+    <!-- Content Container -->
+    <div class="container mt-5">
+        <div class="card course-card" id="course-container">
+            <div class="card-body">
+                <h2 id="course-title">Loading course title...</h2>
+                <p id="course-description">Loading description...</p>
+                <div class="mt-4">
+                    <a id="course-pdf" class="btn btn-primary" download>Download Course PDF</a>
+                    <button id="back-button" class="btn btn-secondary ms-2" onclick="window.location.href='courses.html'">Back to Courses</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error message (hidden by default) -->
+    <div class="container mt-3" id="error-container" style="display: none;">
+        <div class="alert alert-warning">
+            <h4>No Course Selected</h4>
+            <p>Please select a course from the courses page.</p>
+            <button class="btn btn-primary" onclick="window.location.href='courses.html'">Go to Courses</button>
+        </div>
+    </div>
+
+    <script>
+        // Function to handle logging out
+        function logout() {
+            // Clear session storage
+            sessionStorage.clear();
+            // Redirect to login page
+            window.location.href = "login";
+        }
+        
+        // Immediately run the code when page loads
+        document.addEventListener("DOMContentLoaded", function() {
+            console.log("Page loaded, checking for course data");
+            
+            // Check localStorage directly
+            const courseJSON = localStorage.getItem("selectedCourse");
+            console.log("Data from localStorage:", courseJSON);
+            
+            // If no course data, show error and exit
+            if (!courseJSON) {
+                document.getElementById("error-container").style.display = "block";
+                document.getElementById("course-container").style.display = "none";
+                console.error("No course data found in localStorage");
+                return;
+            }
+            
+            try {
+                // Parse course data
+                const course = JSON.parse(courseJSON);
+                console.log("Parsed course data:", course);
+                
+                // Set course details
+                document.getElementById("course-title").textContent = course.title || "Unknown Course";
+                document.getElementById("course-description").textContent = course.description || "No description available";
+                
+                // Set PDF link with proper download attributes
+                const pdfLink = document.getElementById("course-pdf");
+                if (course.pdf) {
+                    pdfLink.href = course.pdf;
+                    // Extract filename from path for the download attribute
+                    const filename = course.pdf.split('/').pop();
+                    pdfLink.setAttribute("download", filename);
+                    pdfLink.textContent = `Download ${course.title} Materials`;
+                    console.log("PDF link set to:", pdfLink.href, "with download filename:", filename);
+                } else {
+                    pdfLink.href = "#";
+                    pdfLink.textContent = "No PDF Available";
+                    pdfLink.classList.add("disabled");
+                    console.warn("No PDF path available for this course");
+                }
+                
+                console.log("Course details set successfully");
+            } catch (error) {
+                console.error("Error processing course data:", error);
+                document.getElementById("error-container").style.display = "block";
+                document.getElementById("course-container").style.display = "none";
+            }
+        });
+    </script>
+</body>
+</html>
