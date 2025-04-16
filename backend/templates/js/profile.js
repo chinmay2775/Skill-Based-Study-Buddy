@@ -57,6 +57,42 @@ document.getElementById('upload-pic').addEventListener('change', function(e) {
     }
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+    // Load user data from session storage
+    const username = sessionStorage.getItem('username');
+    const skills = sessionStorage.getItem('skills');
+    const learningGoals = sessionStorage.getItem('learningGoals');
+    
+    // Check if user is logged in
+    if (!username) {
+        console.log("No username found in sessionStorage, redirecting to login");
+        window.location.href = '/login';
+        return;
+    }
+    else{
+        window.location.href = '/profile';
+    }
+    
+    // Populate form fields
+    document.getElementById('username').value = username;
+    document.getElementById('skills').value = skills || '';
+    document.getElementById('learningGoals').value = learningGoals || '';
+    
+    console.log("Profile page loaded successfully with user data");
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+    const username = sessionStorage.getItem('username');
+    fetch(`/get_profile_pic?username=${username}`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.image) {
+          document.getElementById('profile-pic').src = 'data:image/png;base64,' + data.image;
+        }
+      });
+  });
+  
+
 function logout() {
     fetch('/logout', {
         method: 'POST'

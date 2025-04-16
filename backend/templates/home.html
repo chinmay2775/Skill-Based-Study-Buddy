@@ -4,159 +4,324 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Skill-Based Study Buddy</title>
+<!-- Add this in the <head> section of all your HTML files -->
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='images/logo.png') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
         /* General Styling */
-    body {
-        font-family: 'Poppins', sans-serif;
-        background: linear-gradient(135deg, #4a90e2, #9013fe);
-        color: white;
-        text-align: center;
-    }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #4a90e2, #9013fe);
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
 
-    /* Hero Section */
-    .hero {
-        padding: 50px;
-        font-size: 1.5rem;
-        background: rgba(255, 255, 255, 0.2);
-        backdrop-filter: blur(10px);
-        margin-bottom: 20px;
-        border-radius: 10px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    }
-    .hero h1 {
-        margin-bottom: 0.5rem;
-        font-size: 2.5rem;
-    }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
 
-    .hero p {
-        font-size: 1.2rem;
-        opacity: 0.9;
-    }
+        /* Hero Section */
+        .hero {
+            position: relative;
+            padding: 80px 20px;
+            font-size: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            margin-bottom: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
 
-    .user-profile {
-        background-color:  #8325ff58;
-        border-radius: 10px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-        margin: 1rem auto;
-        max-width: 800px;
-        padding: 1.5rem;
-    }
-
-    .user-welcome { 
-        font-size: 1.8rem;
-        margin-bottom: 1rem;
-        color: #ffffff;
-    }
-
-    .user-skills {
-        margin-bottom: 1rem;
-        color:#ffffff
-    }
-
-    .user-goals {
-        margin-bottom: 1rem;
-        color:#ffffff
-    }
-
-    .logout-btn {
-        background-color: #f44336;
-        color: white;
-        border: none;
-        padding: 0.5rem 1rem;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-
-    .logout-btn:hover {
-        background-color: #d32f2f;
-    }
-
-    /* Navigation Section */
-    .navigation h2 {
-        font-size: 2rem;
-        margin-bottom: 20px;
-    }
-
-    /* Navigation Cards */
-    .nav-container {
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        flex-wrap: wrap;
-        margin-top: 20px;
-    }
-
-    .nav-card {
-        background: rgba(255, 255, 255, 0.2);
-        padding: 20px;
-        border-radius: 10px;
-        backdrop-filter: blur(10px);
-        width: 200px;
-        cursor: pointer;
-        transition: 0.3s;
-        text-align: center;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    }
-
-    .nav-card img {
-        width: 60px;
-        height: 60px;
-        margin-bottom: 10px;
-    }
-
-    .nav-card h3 {
-        font-size: 1.2rem;
-    }
-
-    .nav-card:hover {
-        transform: scale(1.05);
-        background: rgba(255, 255, 255, 0.3);
-    }
-
-    /* Why Choose Us Section */
-    .why-choose {
-        margin-top: 40px;
-    }
-
-    .why-choose h2 {
-        font-size: 2.5rem;
-        margin-bottom: 20px;
-    }
-
-    .features {
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        flex-wrap: wrap;
-    }
-
-    .feature-box {
-        background: rgba(255, 255, 255, 0.2);
-        backdrop-filter: blur(10px);
-        padding: 20px;
-        width: 300px;
-        border-radius: 10px;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-        transition: 0.3s;
-    }
-
-    .feature-box:hover {
-        transform: translateY(-5px);
-    }
-
-    /* Footer */
-    footer {
-        margin-top: 40px;
-        padding: 10px;
-        background: rgba(0, 0, 0, 0.3);
-        border-radius: 10px;
-        font-size: 0.9rem;
-    }
-
-    .subscribe-btn {
+        .hero:before {
+            content: '';
             position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://via.placeholder.com/1500x800') center/cover no-repeat;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .hero h1 {
+            margin-bottom: 1rem;
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #fff, #d0a0ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease-out;
+            animation-delay: 0.3s;
+            animation-fill-mode: both;
+        }
+
+        /* User Profile */
+        .user-profile {
+            background: rgba(131, 37, 255, 0.2);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin: 2rem auto;
+            max-width: 800px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transform: translateY(0);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeIn 1s ease-out;
+            animation-delay: 0.6s;
+            animation-fill-mode: both;
+        }
+
+        .user-profile:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .user-profile:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            z-index: -1;
+        }
+
+        .user-welcome { 
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .user-skills, .user-goals {
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+            font-size: 1.1rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 12px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .user-skills:hover, .user-goals:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.02);
+        }
+
+        .logout-btn {
+            background: linear-gradient(to right, #ff4d6d, #f86e51);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+        }
+
+        .logout-btn:hover {
+            background: linear-gradient(to right, #ff3d5d, #f85e41);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 77, 109, 0.6);
+        }
+
+        /* Navigation Section */
+        .navigation {
+            padding: 40px 20px;
+            margin-top: 40px;
+            animation: fadeIn 1s ease-out;
+            animation-delay: 0.9s;
+            animation-fill-mode: both;
+        }
+
+        .navigation h2 {
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            font-weight: 600;
+            position: relative;
+            display: inline-block;
+        }
+
+        .navigation h2:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 3px;
+            background: #ffffff;
+            border-radius: 3px;
+        }
+
+        /* Navigation Cards */
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .nav-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            width: 220px;
+            height: 220px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            z-index: -1;
+        }
+
+        .nav-card h4 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            transition: all 0.4s ease;
+        }
+
+        .nav-card h3 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            transition: all 0.4s ease;
+        }
+
+        .nav-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-card:hover h4 {
+            transform: scale(1.2);
+        }
+
+        /* Card-specific hover effects */
+        .nav-card.profile-card:hover {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(16, 185, 129, 0.3));
+        }
+
+        .nav-card.courses-card:hover {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(217, 70, 239, 0.3));
+        }
+
+        .nav-card.chat-card:hover {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.3), rgba(249, 115, 22, 0.3));
+        }
+
+        .nav-card.mentors-card:hover {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(236, 72, 153, 0.3));
+        }
+
+        /* Why Choose Us Section */
+        .why-choose {
+            margin-top: 60px;
+            padding: 40px 20px;
+            animation: fadeIn 1s ease-out;
+            animation-delay: 1.2s;
+            animation-fill-mode: both;
+        }
+
+        .why-choose h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            font-weight: 600;
+            position: relative;
+            display: inline-block;
+        }
+
+        .why-choose h2:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 3px;
+            background: #ffffff;
+            border-radius: 3px;
+        }
+
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .feature-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            width: 330px;
+            min-height: 250px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .feature-box h3 {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .feature-box p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .feature-box:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Subscribe Button */
+        .subscribe-btn {
+            position: fixed;
             top: 15px;
             right: 20px;
             background: linear-gradient(90deg, #ff8c00, #ff0080, #8a2be2, #ff0080, #ff8c00);
@@ -164,21 +329,20 @@
             color: white;
             padding: 12px 24px;
             border: none;
-            border-radius: 8px;
+            border-radius: 30px;
             font-size: 16px;
             font-weight: bold;
             text-transform: uppercase;
             cursor: pointer;
             transition: 0.3s ease-in-out;
-            animation: glitter 2s infinite alternate;
-            position: fixed;
+            animation: glitter 3s infinite alternate;
             z-index: 999;
+            box-shadow: 0px 4px 20px rgba(255, 0, 128, 0.5);
         }
 
-        /* Hover Effect */
         .subscribe-btn:hover {
             transform: scale(1.1);
-            box-shadow: 0px 0px 12px rgba(255, 215, 0, 1);
+            box-shadow: 0px 0px 20px rgba(255, 215, 0, 0.8);
         }
 
         /* Glitter Animation */
@@ -188,6 +352,67 @@
             100% { background-position: 0% 50%; filter: brightness(1.2); }
         }
 
+        /* Footer */
+        footer {
+            margin-top: 60px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px 10px 0 0;
+            font-size: 1rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from { 
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .user-welcome {
+                font-size: 1.5rem;
+            }
+            
+            .nav-card {
+                width: 180px;
+                height: 180px;
+                padding: 20px;
+            }
+            
+            .feature-box {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -195,67 +420,99 @@
     <button class="subscribe-btn" onclick="subscribe()">Subscribe</button>
     
     <!-- Hero Section -->
-    <section class="hero">
-        <h1>Skill-Based Study Buddy</h1>
-        <p>Your smart companion for skill-based learning.</p>
-    </section>
-    
-    <!-- User Profile Section -->
-    <section class="user-profile">
-        <div class="user-welcome">Welcome, <span id="username-display">!</span></div>
-        <div class="user-skills"><strong>Skills:</strong> <span id="user-skills"></span></div>
-        <div class="user-goals"><strong>Learning Goals:</strong> <span id="user-goals"></span></div>
-        <button class="logout-btn" onclick="logout()">Logout</button>
-    </section>
+    <div class="container">
+        <section class="hero animate__animated animate__fadeIn">
+            <h1>Skill-Based Study Buddy</h1>
+            <p>Your intelligent companion for personalized skill development and lifelong learning.</p>
+        </section>
+        
+        <!-- User Profile Section -->
+        <section class="user-profile">
+            <div class="user-welcome">Welcome, <span id="username-display">!</span></div>
+            <div class="user-skills"><strong>Skills:</strong> <span id="user-skills"></span></div>
+            <div class="user-goals"><strong>Learning Goals:</strong> <span id="user-goals"></span></div>
+            <button id="logoutButton" class="btn btn-outline-danger">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </section>
 
-    <!-- Navigation Cards -->
-    <section class="navigation">
-        <h2>Where do you want to go?</h2>
-        <div class="nav-container">
-            <div class="nav-card" onclick="navigateTo('profile')">
-                <h4>👤</h4>
-                <h3>Profile</h3>
+        <!-- Navigation Cards -->
+        <section class="navigation">
+            <h2>Where would you like to go?</h2>
+            <div class="nav-container">
+                <div class="nav-card profile-card" onclick="navigateTo('profile')">
+                    <h4>👤</h4>
+                    <h3>Profile</h3>
+                </div>
+                <div class="nav-card courses-card" onclick="navigateTo('courses')">
+                    <h4>🖥️</h4>
+                    <h3>Courses</h3>
+                </div>
+                <div class="nav-card chat-card" onclick="navigateTo('chat')">
+                    <h4>💬</h4>
+                    <h3>Learn with Buddy</h3>
+                </div>
+                <div class="nav-card mentors-card" onclick="navigateTo('mentors')">
+                    <h4>🧑‍🏫</h4>
+                    <h3>Mentors</h3>
+                </div>
             </div>
-            <div class="nav-card" onclick="navigateTo('courses')">
-                <h4>🖥️</h4>
-                <h3>Courses</h3>
-            </div>
-            <div class="nav-card" onclick="navigateTo('chat')">
-                <h4>💬</h4>
-                <h3>Learn with Buddy</h3>
-            </div>
-            <div class="nav-card" onclick="navigateTo('mentors')">
-                <h4>🧑‍🏫</h4>
-                <h3>Mentors</h3>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Why Choose Us Section -->
-    <section class="why-choose">
-        <h2>Why Choose Us?</h2>
-        <div class="features">
-            <div class="feature-box">
-                <h3>📚 Personalized Learning</h3>
-                <p>Get tailored courses and learning materials based on your skills.</p>
+        <!-- Why Choose Us Section -->
+        <section class="why-choose">
+            <h2>Why Choose Us?</h2>
+            <div class="features">
+                <div class="feature-box">
+                    <h3>📚 Personalized Learning</h3>
+                    <p>Experience tailored courses and learning materials designed specifically for your skill level and goals. Our AI analyzes your strengths and suggests optimal learning paths.</p>
+                </div>
+                <div class="feature-box">
+                    <h3>🤖 AI-Powered Assistance</h3>
+                    <p>Our intelligent chatbot companion guides you through challenging concepts, answers your questions, and adapts to your unique learning style as you progress.</p>
+                </div>
+                <div class="feature-box">
+                    <h3>🎓 Certification & Growth</h3>
+                    <p>Complete courses, earn industry-recognized certifications, and track your skill development with detailed progress analytics and growth metrics.</p>
+                </div>
             </div>
-            <div class="feature-box">
-                <h3>🤖 AI-Powered Assistance</h3>
-                <p>Smart chatbot to guide you through learning paths and queries.</p>
-            </div>
-            <div class="feature-box">
-                <h3>🎓 Certification & Growth</h3>
-                <p>Complete courses and earn certifications to showcase your skills.</p>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Footer Section -->
-    <footer>
-        <p>Skill-Based Study Buddy</p>
-    </footer>
+        <!-- Footer Section -->
+        <footer>
+            <p>Skill-Based Study Buddy | Your Journey to Mastery</p>
+        </footer>
+    </div>
 
     <script>
+
+        // Logout button functionality
+        document.getElementById('logoutButton').addEventListener('click', async function() {
+            try {
+                const response = await fetch('/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Clear session storage
+                    sessionStorage.clear();
+                    
+                    // Redirect to thank you page
+                    window.location.href = result.redirect;
+                } else {
+                    alert('Error logging out. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error during logout:', error);
+                alert('An error occurred during logout.');
+            }
+        });
+
         document.addEventListener('DOMContentLoaded', function() {
             console.log("Home page loaded");
             
@@ -300,22 +557,71 @@
             }
             
             console.log("User data successfully displayed");
+            
+            // Add animation classes to elements with a delay
+            setTimeout(function() {
+                document.querySelectorAll('.nav-card').forEach((card, index) => {
+                    setTimeout(() => {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(20px)';
+                        card.offsetHeight; // Force reflow
+                        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, index * 100);
+                });
+                
+                document.querySelectorAll('.feature-box').forEach((box, index) => {
+                    setTimeout(() => {
+                        box.style.opacity = '0';
+                        box.style.transform = 'translateY(20px)';
+                        box.offsetHeight; // Force reflow
+                        box.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                        box.style.opacity = '1';
+                        box.style.transform = 'translateY(0)';
+                    }, 400 + index * 100);
+                });
+            }, 1000);
         });
 
         function navigateTo(page) {
-        console.log("Navigating to:", page);
-        window.location.href = "/" + page;
-}
- 
+            console.log("Navigating to:", page);
+            
+            // Add fade-out effect before navigation
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.3s ease';
+            
+            setTimeout(() => {
+                window.location.href = page;
+            }, 300);
+        }
 
-
-        
-    
+        function navigateTo(page) {
+            console.log("Navigating to:", page);
+            window.location.href = "/" + page;  // Make sure the path is correct with the leading slash
+        }
+                
         function logout() {
-            // Clear session storage
-            sessionStorage.clear();
-            // Redirect to login page
-            window.location.href = "login";
+            // Add fade-out effect
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.3s ease';
+            
+            setTimeout(() => {
+                // Clear session storage
+                sessionStorage.clear();
+                // Redirect to login page
+                window.location.href = "login";
+            }, 300);
+        }
+        
+        function subscribe() {
+            // Add fade-out effect
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.3s ease';
+            
+            setTimeout(() => {
+                window.location.href = "subscription.html"; // Navigate to subscription page
+            }, 300);
         }
     </script>
     <script>
@@ -323,12 +629,8 @@
             chatbotId: "H4vXOZVApGu6tplEfs3tM",
             domain: "www.chatbase.co"
         }
-        function subscribe() {
-            window.location.href = "subscription.html"; // Navigate to subscription page
-        }
     </script>
     <script src="https://www.chatbase.co/embed.min.js" chatbotId="H4vXOZVApGu6tplEfs3tM" domain="www.chatbase.co" defer>
     </script>
-
 </body>
 </html>

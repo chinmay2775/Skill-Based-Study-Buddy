@@ -1,129 +1,307 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Course Details - Skill-Based Study Buddy</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #2c3e50, #34495e);
-            color: rgb(255, 255, 255);
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Course Details - Skill-Based Study Buddy</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #4a90e2, #9013fe);
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
 
-        .card {
-            max-width: 600px;
-            margin: auto;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-            background: #1e272e;
-        }
+    .navbar {
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
 
-        .btn-primary {
-            background-color: #2980b9;
-            border: none;
-            transition: 0.3s;
-        }
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.4rem;
+    }
 
-        .btn-primary:hover {
-            background-color: #3498db;
-        }
+    .logout-btn {
+      background: linear-gradient(to right, #ff4d6d, #f86e51);
+      border: none;
+      padding: 8px 16px;
+      border-radius: 30px;
+      color: white;
+      font-weight: 500;
+    }
 
+    .logout-btn:hover {
+      background: linear-gradient(to right, #ff3d5d, #f85e41);
+    }
 
-    </style>
+    .hero-section {
+      text-align: center;
+      padding: 60px 20px;
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-title {
+      font-size: 3rem;
+      font-weight: 700;
+      background: linear-gradient(to right, #fff, #d0a0ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .lead {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .course-detail-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      padding: 40px;
+      color: white;
+    }
+
+    .course-detail-header h2 {
+      font-weight: 600;
+      font-size: 2rem;
+    }
+
+    .course-icon {
+      font-size: 3.5rem;
+      color: #ffd700;
+      margin-bottom: 20px;
+    }
+
+    .course-description {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+    }
+
+    .course-features {
+      margin-top: 30px;
+      text-align: left;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .feature-icon {
+      color: #90ee90;
+      font-size: 1.2rem;
+      margin-right: 10px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(to right, #ff4d6d, #f86e51);
+      border: none;
+      border-radius: 30px;
+      padding: 10px 20px;
+      font-weight: 500;
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: white;
+      margin-left: 10px;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      transition: 0.3s ease;
+    }
+
+    .footer {
+      margin-top: 60px;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.3);
+      text-align: center;
+      font-size: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2rem;
+      }
+
+      .course-detail-card {
+        padding: 20px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="home.html">Skill-Based Study Buddy</a>
-            <button class="btn btn-outline-light" onclick="logout()">Logout</button>
-        </div>
-    </nav>
-
-    <!-- Content Container -->
-    <div class="container mt-5">
-        <div class="card course-card" id="course-container">
-            <div class="card-body">
-                <h2 id="course-title">Loading course title...</h2>
-                <p id="course-description">Loading description...</p>
-                <div class="mt-4">
-                    <a id="course-pdf" class="btn btn-primary" download>Download Course PDF</a>
-                    <button id="back-button" class="btn btn-secondary ms-2" onclick="window.location.href='courses.html'">Back to Courses</button>
-                </div>
-            </div>
-        </div>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand text-white" href="home.html">
+        <i class="fas fa-book-open me-2"></i>Skill-Based Study Buddy
+      </a>
+      <button id="logoutButton" class="btn btn-outline-danger">
+        <i class="fas fa-sign-out-alt"></i> Logout
+    </button>
     </div>
+  </nav>
 
-    <!-- Error message (hidden by default) -->
-    <div class="container mt-3" id="error-container" style="display: none;">
-        <div class="alert alert-warning">
-            <h4>No Course Selected</h4>
-            <p>Please select a course from the courses page.</p>
-            <button class="btn btn-primary" onclick="window.location.href='courses.html'">Go to Courses</button>
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <h1 class="hero-title" id="hero-title">Course Details</h1>
+    <p class="lead" id="hero-subtitle">Explore the curriculum and resources</p>
+  </section>
+
+  <!-- Course Card -->
+  <div class="container mb-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="course-detail-card" id="course-container">
+          <div class="course-detail-header text-center">
+            <i class="course-icon" id="course-icon"></i>
+            <h2 id="course-title">Loading course title...</h2>
+          </div>
+          <div class="course-description" id="course-description">Loading description...</div>
+          <div class="course-features">
+            <h4 class="mb-3">What You'll Learn</h4>
+            <div id="course-features"></div>
+          </div>
+          <div class="text-center mt-4">
+            <a id="course-pdf" class="btn btn-primary" download>
+              <i class="fas fa-file-pdf me-2"></i>Download Materials
+            </a>
+            <button class="btn btn-secondary" onclick="window.location.href='courses.html'">
+              <i class="fas fa-arrow-left me-2"></i>Back to Courses
+            </button>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 
-    <script>
-        // Function to handle logging out
-        function logout() {
-            // Clear session storage
-            sessionStorage.clear();
-            // Redirect to login page
-            window.location.href = "login";
-        }
-        
-        // Immediately run the code when page loads
-        document.addEventListener("DOMContentLoaded", function() {
-            console.log("Page loaded, checking for course data");
-            
-            // Check localStorage directly
-            const courseJSON = localStorage.getItem("selectedCourse");
-            console.log("Data from localStorage:", courseJSON);
-            
-            // If no course data, show error and exit
-            if (!courseJSON) {
-                document.getElementById("error-container").style.display = "block";
-                document.getElementById("course-container").style.display = "none";
-                console.error("No course data found in localStorage");
-                return;
-            }
-            
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Skill-Based Study Buddy | Your Journey to Mastery</p>
+  </footer>
+
+  <script>
+    const courseDetails = {
+      1: {
+        icon: "fab fa-python",
+        features: [
+          "Python syntax and basic programming concepts",
+          "Data structures and algorithms",
+          "Object-oriented programming principles",
+          "File handling and error management",
+          "Building simple applications from scratch"
+        ]
+      },
+      2: {
+        icon: "fas fa-code",
+        features: [
+          "HTML5 structure and semantic elements",
+          "CSS3 styling and responsive design",
+          "JavaScript for interactive web applications",
+          "DOM manipulation techniques",
+          "Modern web development best practices"
+        ]
+      },
+      3: {
+        icon: "fas fa-robot",
+        features: [
+          "Machine learning fundamentals and concepts",
+          "Data preprocessing and feature engineering",
+          "Model training and evaluation techniques",
+          "Neural networks and deep learning basics",
+          "Real-world AI applications and case studies"
+        ]
+      }
+    };
+
+    function logout() {
+      sessionStorage.clear();
+      window.location.href = "login";
+    }
+
+    function generateFeaturesList(features) {
+      return features.map(f => `
+        <div class="feature-item">
+          <i class="fas fa-check-circle feature-icon"></i>
+          <span>${f}</span>
+        </div>`).join('');
+    }
+
+    // Logout button functionality
+    document.getElementById('logoutButton').addEventListener('click', async function() {
             try {
-                // Parse course data
-                const course = JSON.parse(courseJSON);
-                console.log("Parsed course data:", course);
+                const response = await fetch('/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
                 
-                // Set course details
-                document.getElementById("course-title").textContent = course.title || "Unknown Course";
-                document.getElementById("course-description").textContent = course.description || "No description available";
+                const result = await response.json();
                 
-                // Set PDF link with proper download attributes
-                const pdfLink = document.getElementById("course-pdf");
-                if (course.pdf) {
-                    pdfLink.href = course.pdf;
-                    // Extract filename from path for the download attribute
-                    const filename = course.pdf.split('/').pop();
-                    pdfLink.setAttribute("download", filename);
-                    pdfLink.textContent = `Download ${course.title} Materials`;
-                    console.log("PDF link set to:", pdfLink.href, "with download filename:", filename);
+                if (result.success) {
+                    // Clear session storage
+                    sessionStorage.clear();
+                    
+                    // Redirect to thank you page
+                    window.location.href = result.redirect;
                 } else {
-                    pdfLink.href = "#";
-                    pdfLink.textContent = "No PDF Available";
-                    pdfLink.classList.add("disabled");
-                    console.warn("No PDF path available for this course");
+                    alert('Error logging out. Please try again.');
                 }
-                
-                console.log("Course details set successfully");
             } catch (error) {
-                console.error("Error processing course data:", error);
-                document.getElementById("error-container").style.display = "block";
-                document.getElementById("course-container").style.display = "none";
+                console.error('Error during logout:', error);
+                alert('An error occurred during logout.');
             }
-        });
-    </script>
+      }); 
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const data = localStorage.getItem("selectedCourse");
+      if (!data) return;
+
+      const course = JSON.parse(data);
+      document.getElementById("hero-title").textContent = course.title;
+      document.getElementById("course-title").textContent = course.title;
+      document.getElementById("course-description").textContent = course.description;
+
+      const iconEl = document.getElementById("course-icon");
+      iconEl.className = `course-icon ${courseDetails[course.id]?.icon || "fas fa-book"}`;
+
+      const featuresEl = document.getElementById("course-features");
+      featuresEl.innerHTML = generateFeaturesList(courseDetails[course.id]?.features || []);
+
+      const pdfLink = document.getElementById("course-pdf");
+      if (course.pdf) {
+        pdfLink.href = course.pdf;
+        pdfLink.download = course.pdf.split('/').pop();
+        pdfLink.innerHTML = `<i class="fas fa-file-pdf me-2"></i>Download ${course.title} Materials`;
+      } else {
+        pdfLink.classList.add("disabled");
+        pdfLink.innerHTML = `<i class="fas fa-times-circle me-2"></i>No PDF Available`;
+      }
+    });
+  </script>
+   <script>
+    window.embeddedChatbotConfig = {
+          chatbotId: "H4vXOZVApGu6tplEfs3tM",
+          domain: "www.chatbase.co"
+      }
+  </script>
+  <script src="https://www.chatbase.co/embed.min.js" chatbotId="H4vXOZVApGu6tplEfs3tM" domain="www.chatbase.co" defer>
+  </script>
+
 </body>
 </html>

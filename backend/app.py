@@ -198,6 +198,12 @@ def login():
         cursor.close()
         conn.close()
 
+#Loading Page
+@app.route('/loading')
+def loading():
+    # You might want to add authentication check here
+    return render_template('loading.html')
+
 
 @app.route("/home")
 def home():
@@ -205,95 +211,59 @@ def home():
 
 @app.route('/profile')
 def profile():
-    # Check if user is logged in
-    if 'user_id' in session:
-        return redirect(url_for('/profile'))
-    
-    # Get user data from database
+    # Simply render the profile template - client-side JS will handle auth checks
+    return render_template("profile.html")
+
     conn = get_db_connection()
-    cursor = conn.cursor(dictionary=True)  # Using dictionary=True to get results as dictionaries
+    cursor = conn.cursor(dictionary=True)
     
     try:
-        cursor.execute('SELECT * FROM users WHERE id = %s', (session['user_id'],))
+        cursor.execute('SELECT * FROM users WHERE username = %s', (session['username'],))
         user = cursor.fetchone()
         
-        if user is None:
-            # Handle case where user doesn't exist
-            return redirect(url_for('logout'))
         
-        return render_template('/profile.html', user=user)
+        
+        
     except Exception as e:
         print(f"Error retrieving user profile: {e}")
-        return redirect(url_for('profile'))
+        return redirect(url_for('login'))
     finally:
         cursor.close()
         conn.close()
 
 
 
-@app.route('/update_profile', methods=['POST'])
-def update_profile():
-    if 'user_id' not in session:
-        return jsonify({'success': False, 'message': 'Not logged in'})
-    
-    data = request.json
-    
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    
-    try:
-        cursor.execute('''
-            UPDATE users 
-            SET name = %s, bio = %s, skills = %s 
-            WHERE id = %s
-        ''', (data['name'], data['bio'], data['skills'], session['user_id']))
-        conn.commit()
-        return jsonify({'success': True})
-    except Exception as e:
-        return jsonify({'success': False, 'message': str(e)})
-    finally:
-        cursor.close()
-        conn.close()
-
-
-# For profile picture upload
 @app.route('/upload_profile_pic', methods=['POST'])
 def upload_profile_pic():
-    if 'user_id' not in session:
-        return jsonify({'success': False, 'message': 'Not logged in'})
+    data = request.get_json()
+    username = data['username']
+    image_data = base64.b64decode(data['image'])
     
-    if 'profile_pic' not in request.files:
-        return jsonify({'success': False, 'message': 'No file part'})
-        
-    file = request.files['profile_pic']
-    
-    if file.filename == '':
-        return jsonify({'success': False, 'message': 'No selected file'})
-        
-    # Process file upload (create upload folder if it doesn't exist)
-    uploads_dir = os.path.join(app.static_folder, 'uploads')
-    os.makedirs(uploads_dir, exist_ok=True)
-    
-    filename = secure_filename(f"user_{session['user_id']}_{file.filename}")
-    filepath = os.path.join(uploads_dir, filename)
-    file.save(filepath)
-    
-    # Update user profile in database
-    image_url = url_for('static', filename=f'uploads/{filename}')
-    
-    conn = get_db_connection()
-    conn.execute('UPDATE users SET profile_pic = ? WHERE id = ?', 
-                (image_url, session['user_id']))
+    conn = mysql.connector.connect(...)  # your db credentials
+    cursor = conn.cursor()
+    cursor.execute("UPDATE users SET profile_pic=%s WHERE username=%s", (image_data, username))
     conn.commit()
     conn.close()
     
-    return jsonify({'success': True, 'image_url': image_url})
+    return jsonify({'success': True})
+
+# Add these routes to your app.py file
+
+@app.route('/thankyou')
+def thankyou():
+    # Clear any session data
+    session.clear()
+    return render_template('thankyou.html')
 
 
+
+
+# Then modify your existing logout route
 @app.route('/logout', methods=['POST'])
 def logout():
-    session.pop('user_id', None)
-    return jsonify({'success': True})
+    # Clear session
+    session.clear()
+    return jsonify({'success': True, 'redirect': '/thankyou'})
 
 
 @app.route('/courses')
